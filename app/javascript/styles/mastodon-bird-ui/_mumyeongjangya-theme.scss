@@ -4,6 +4,7 @@ body.theme-mumyeongjangya-night {
   color-scheme: dark;
 
   --mumyeongjangya-page-bg: #060312;
+  --mumyeongjangya-solid-surface: #17074c;
   --mumyeongjangya-vignette: rgba(0, 0, 0, 38%);
   --mumyeongjangya-background-image: url('../images/mumyeongjangya-night-background.png');
   --mumyeongjangya-background-overlay: linear-gradient(150deg, rgba(6, 3, 18, 12%), rgba(6, 3, 18, 34%));
@@ -99,6 +100,7 @@ body.theme-mumyeongjangya-day {
   color-scheme: light;
 
   --mumyeongjangya-page-bg: #f7f3fa;
+  --mumyeongjangya-solid-surface: #f7f3fa;
   --mumyeongjangya-vignette: rgba(49, 30, 72, 18%);
   --mumyeongjangya-background-image: url('../images/mumyeongjangya-day-background.png');
   --mumyeongjangya-background-overlay: linear-gradient(150deg, rgba(252, 249, 252, 18%), rgba(247, 243, 250, 8%));
@@ -599,12 +601,19 @@ body.theme-mumyeongjangya-night {
     box-shadow: 0 12px 34px rgba(49, 14, 112, 20%), inset 0 1px 0 var(--mumyeongjangya-glass-highlight) !important;
   }
 
-  /* backdrop-filter creates a stacking context. Keep the expanded search and
-   * its popout above Bird UI's compose form, which uses z-index: 4. */
+  /* backdrop-filter creates a stacking context. Keep expanded search above
+   * both the compose form (4) and its following link footer (5). */
   .search.active,
   .search:focus-within {
     position: relative;
-    z-index: 5;
+    z-index: 6;
+  }
+
+  .search .search__popout,
+  .search-popout {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background-color: var(--mumyeongjangya-solid-surface);
   }
 
   .navigation-panel__compose-button,
@@ -613,7 +622,17 @@ body.theme-mumyeongjangya-night {
   .ui__compose-fab,
   .ui__compose-fab:hover,
   .ui__compose-fab:focus-visible {
-    color: var(--color-accent);
+    background-color: var(--color-post-button) !important;
+    color: var(--color-post-button-text) !important;
+  }
+
+  .navigation-panel__compose-button:hover,
+  .navigation-panel__compose-button:focus-visible,
+  .navigation-panel__compose-button:active,
+  .ui__compose-fab:hover,
+  .ui__compose-fab:focus-visible,
+  .ui__compose-fab:active {
+    background-color: var(--color-accent-dark) !important;
   }
 }
 
@@ -623,9 +642,9 @@ body.theme-mumyeongjangya-night {
   body.theme-mumyeongjangya-day,
   body.theme-mumyeongjangya-night {
     .ui__navigation-bar {
-      -webkit-backdrop-filter: blur(22px) saturate(150%);
-      backdrop-filter: blur(22px) saturate(150%);
-      background-color: var(--mumyeongjangya-glass-strong) !important;
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+      background-color: var(--mumyeongjangya-solid-surface) !important;
       border-color: var(--mumyeongjangya-glass-border) !important;
       box-shadow: 0 -10px 32px rgba(49, 14, 112, 14%), inset 0 1px 0 var(--mumyeongjangya-glass-highlight) !important;
     }
@@ -648,24 +667,5 @@ body.theme-mumyeongjangya-night {
       box-shadow: 0 12px 30px rgba(49, 14, 112, 30%), inset 0 1px 0 var(--mumyeongjangya-glass-highlight) !important;
       color: var(--color-post-button-text) !important;
     }
-
-    .ui__compose-fab {
-      background-color: var(--color-post-button) !important;
-    }
-
-    .ui__compose-fab:hover,
-    .ui__compose-fab:focus-visible,
-    .ui__compose-fab:active {
-      background-color: var(--color-accent-dark) !important;
-    }
-  }
-}
-
-@media screen and (width <= 759px) and (prefers-reduced-transparency: reduce) {
-  body.theme-mumyeongjangya-day .ui__navigation-bar,
-  body.theme-mumyeongjangya-night .ui__navigation-bar {
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-    background-color: var(--mumyeongjangya-glass-fallback) !important;
   }
 }
