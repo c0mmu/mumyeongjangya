@@ -7,8 +7,18 @@ import PersonIcon from '@/material-icons/400-24px/person.svg?react';
 import SmartToyIcon from '@/material-icons/400-24px/smart_toy.svg?react';
 
 
-export const Badge = ({ icon = <PersonIcon />, label, domain, roleId }) => (
-  <div className='account-role' data-account-role-id={roleId}>
+export const Badge = ({
+  icon = <PersonIcon />,
+  label,
+  domain,
+  roleId,
+  roleColor,
+}) => (
+  <div
+    className='account-role'
+    data-account-role-id={roleId}
+    style={roleColor ? { '--user-role-color': roleColor } : undefined}
+  >
     {icon}
     {label}
     {domain && <span className='account-role__domain'>{domain}</span>}
@@ -19,7 +29,8 @@ Badge.propTypes = {
   icon: PropTypes.node,
   label: PropTypes.node,
   domain: PropTypes.node,
-  roleId: PropTypes.string
+  roleId: PropTypes.string,
+  roleColor: PropTypes.string,
 };
 
 export const GroupBadge = () => (

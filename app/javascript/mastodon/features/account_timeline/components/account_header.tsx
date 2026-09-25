@@ -765,6 +765,7 @@ export const AccountHeader: React.FC<{
         label={<span>{role.get('name')}</span>}
         domain={domain}
         roleId={role.get('id')}
+        roleColor={role.get('color')}
       />,
     );
   });
